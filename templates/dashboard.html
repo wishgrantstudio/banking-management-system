@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking Management System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>Banking Management System</h1>
+        <p>Dashboard — Account and Customer Overview</p>
+    </header>
+
+    <main>
+        <section class="cards">
+            <div class="card">
+                <h3>Total Customers</h3>
+                <div class="number">{{ total_customers }}</div>
+            </div>
+
+            <div class="card">
+                <h3>Total Accounts</h3>
+                <div class="number">{{ total_accounts }}</div>
+            </div>
+
+            <div class="card">
+                <h3>Total Account Balance</h3>
+                <div class="number">
+                    ₹{{ "{:,.2f}".format(total_balance) }}
+                </div>
+            </div>
+        </section>
+
+        <section class="table-container">
+            <h2>Customer Accounts</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Email</th>
+                        <th>Account Number</th>
+                        <th>Type</th>
+                        <th>Balance</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for account in accounts %}
+                    <tr>
+                        <td>{{ account.customer_id }}</td>
+                        <td>{{ account.customer_name }}</td>
+                        <td>{{ account.email }}</td>
+                        <td>{{ account.account_number }}</td>
+                        <td>{{ account.account_type }}</td>
+                        <td>₹{{ "{:,.2f}".format(account.balance) }}</td>
+                        <td class="status">{{ account.status }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7">No accounts found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        Banking Management System | College Database Project
+    </footer>
+</body>
+</html>
